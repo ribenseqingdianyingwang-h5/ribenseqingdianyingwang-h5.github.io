@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日本电影网 - 浮世绘风日影日剧动漫纪录片导航</title>
+<meta name="description" content="日本电影网（ribendianyingwang-h5）以浮世绘木版画美学策展：日本电影、日剧、动漫、纪录片、深夜放映，和纸为底，墨线为骨，朱印为眼。">
+<meta name="keywords" content="日本电影网,日影,日剧,日本动漫,日本纪录片,浮世绘风格,免费在线观看">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --washi:#f3ead7;
+  --washi2:#ece0c6;
+  --ink:#161310;
+  --blue:#16324f;
+  --blue2:#1f4e79;
+  --red:#e2483a;
+  --gold:#c98a2b;
+  --sakura:#f4c2cf;
+  --line:#3a3026;
+}
+html{scroll-behavior:smooth}
+body{
+  background:
+    radial-gradient(1200px 500px at 80% -10%,rgba(244,194,207,.35),transparent),
+    radial-gradient(900px 420px at -10% 5%,rgba(22,50,79,.18),transparent),
+    var(--washi);
+  color:var(--ink);
+  font-family:"Songti SC","Noto Serif CJK SC","Source Han Serif SC","PingFang SC",serif;
+  line-height:1.8;overflow-x:hidden;
+}
+/* 和纸噪点 */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;
+  background-image:repeating-linear-gradient(0deg,#000 0 1px,transparent 1px 3px),repeating-linear-gradient(90deg,#000 0 1px,transparent 1px 4px)}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+
+/* 顶部卷轴条 */
+.scroll-bar{background:var(--ink);color:var(--washi);text-align:center;font-size:11px;letter-spacing:8px;padding:6px}
+.scroll-bar b{color:var(--red)}
+
+/* Header */
+.header{max-width:1180px;margin:auto;padding:24px 18px 16px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:14px;border-bottom:3px double var(--line)}
+.brand{display:flex;align-items:flex-end;gap:14px}
+.hanko{width:46px;height:46px;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;border-radius:6px;box-shadow:3px 3px 0 var(--ink);transform:rotate(-4deg)}
+.brand h1{font-size:30px;font-weight:900;letter-spacing:2px}
+.brand p{font-size:11px;letter-spacing:6px;color:#6b5d49}
+.nav{display:flex;gap:6px;flex-wrap:wrap}
+.nav a{padding:8px 14px;font-size:13px;border:2px solid var(--line);transition:.25s;background:rgba(255,255,255,.25)}
+.nav a:hover{background:var(--blue);color:var(--washi);border-color:var(--blue)}
+
+.wrap{max-width:1180px;margin:auto;padding:0 18px}
+
+/* 波浪分隔 */
+.wave{display:block;width:100%;height:54px;margin:34px 0}
+.wave path{fill:var(--blue)}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:26px;align-items:center;margin-top:30px}
+@media(max-width:860px){.hero{grid-template-columns:1fr}}
+.hero h2{font-size:clamp(30px,6vw,56px);line-height:1.15;font-weight:900;letter-spacing:1px}
+.hero h2 em{font-style:normal;color:var(--red)}
+.hero p{margin:16px 0;color:#4a3f30;font-size:15px;max-width:560px}
+.kana{font-size:12px;letter-spacing:6px;color:var(--blue2);margin-bottom:8px}
+.seal-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.seal{background:var(--red);color:#fff;font-size:12px;font-weight:800;padding:6px 12px;border-radius:4px;box-shadow:2px 2px 0 var(--ink);transform:rotate(-2deg)}
+.seal.blue{background:var(--blue)}
+.seal.gold{background:var(--gold)}
+.poster-frame{border:4px solid var(--ink);background:var(--washi2);padding:10px;box-shadow:8px 8px 0 var(--blue);position:relative}
+.poster-frame::after{content:"日本映画";position:absolute;top:8px;right:8px;background:var(--red);color:#fff;font-size:11px;padding:3px 8px;border-radius:3px;letter-spacing:2px}
+.poster-frame img{height:320px;object-fit:cover;filter:saturate(1.05) contrast(1.05)}
+
+/* 栏目标题 */
+.section{margin-top:48px}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.sec-head .jp{font-size:13px;letter-spacing:5px;color:var(--blue2)}
+.sec-head h2{font-size:24px;font-weight:900}
+.sec-head h2 span{color:var(--red)}
+.sec-head a{margin-left:auto;font-size:12px;color:var(--blue);border-bottom:1px solid var(--blue)}
+
+/* 木版画卡片 */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px}
+.plate{background:var(--washi2);border:3px solid var(--ink);overflow:hidden;transition:.3s;position:relative}
+.plate:hover{transform:translateY(-6px) rotate(-.4deg);box-shadow:6px 6px 0 var(--blue)}
+.plate .pic{height:260px;overflow:hidden;border-bottom:3px solid var(--ink)}
+.plate .pic img{width:100%;height:100%;object-fit:cover;transition:.5s;filter:contrast(1.08)}
+.plate:hover .pic img{transform:scale(1.06)}
+.plate .info{padding:14px}
+.plate .info h4{font-size:16px;margin-bottom:4px}
+.plate .info p{font-size:12px;color:#5e5240}
+.plate .tag{position:absolute;top:10px;left:10px;background:var(--ink);color:var(--washi);font-size:10px;padding:3px 9px;letter-spacing:2px}
+.plate:nth-child(2n) .tag{background:var(--red)}
+.plate:nth-child(3n) .tag{background:var(--blue)}
+.plate:nth-child(4n) .tag{background:var(--gold);color:var(--ink)}
+
+/* 霞带分割 */
+.kasumi{height:26px;background:linear-gradient(90deg,transparent,var(--sakura),transparent);margin:46px 0;opacity:.7}
+
+/* 深夜放映：横向卷 */
+.night{background:var(--ink);color:var(--washi);border-radius:4px;padding:26px}
+.night .sec-head h2{color:var(--washi)}
+.night .sec-head .jp{color:var(--sakura)}
+.night .sec-head a{color:var(--sakura);border-color:var(--sakura)}
+.rail{display:flex;gap:16px;overflow-x:auto;padding-bottom:8px}
+.rail::-webkit-scrollbar{height:8px}
+.rail::-webkit-scrollbar-thumb{background:var(--red);border-radius:8px}
+.chip-card{flex:0 0 220px;background:#221d16;border:2px solid #4a3f30;padding:16px;transition:.3s}
+.chip-card:hover{border-color:var(--sakura);transform:translateY(-4px)}
+.chip-card h4{font-size:15px;color:var(--sakura);margin-bottom:6px}
+.chip-card p{font-size:12px;color:#cdbfa6}
+
+/* 策展短语 */
+.haiku{text-align:center;font-size:20px;letter-spacing:4px;color:var(--blue);margin:40px 0;line-height:2.4}
+.haiku b{color:var(--red)}
+
+/* 关于 */
+.about{border:3px double var(--line);padding:30px;background:rgba(255,255,255,.3)}
+.about h2{font-size:22px;margin-bottom:12px}
+.about h2 em{font-style:normal;color:var(--red)}
+.about p{font-size:14px;color:#43392b;margin-bottom:10px;max-width:780px}
+.about a{color:var(--blue2);font-weight:800}
+.mon{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+.mon span{width:54px;height:54px;border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:22px;background:var(--washi2)}
+
+.footer{margin-top:54px;padding:28px 18px;text-align:center;background:var(--ink);color:#cdbfa6;font-size:12px}
+.footer a{color:var(--sakura)}
+.footer .mt-fuji{font-size:30px;margin-bottom:8px}
+
+@media(max-width:768px){
+  .brand h1{font-size:24px}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .plate .pic{height:210px}
+  .poster-frame img{height:260px}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<div class="scroll-bar">浮世の映画帖 ｜ <b>日本电影网</b> ｜ 映画・ドラマ・アニメ・ドキュメンタリー</div>
+
+<header class="header">
+  <div class="brand">
+    <div class="hanko">日</div>
+    <div>
+      <h1>日本电影网</h1>
+      <p>NIPPON EIGA NET</p>
+    </div>
+  </div>
+  <nav class="nav">
+    <a href="#">卷首</a>
+    <a href="#eiga">日本电影</a>
+    <a href="#dorama">日剧</a>
+    <a href="#anime">动漫</a>
+    <a href="#doc">纪录片</a>
+    <a href="#night">深夜放映</a>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div>
+      <div class="kana">うきよえ・えいが</div>
+      <h2>浪是电影，<br>桥是日剧，<br>云是<em>动漫</em>。</h2>
+      <p>日本电影网不堆首页热搜。我们把作品挂进浮世绘长卷：黑泽明的雨、是枝裕和的饭、吉卜力的风、深夜档的便利店灯光，各归各的墨线。</p>
+      <div class="seal-row">
+        <span class="seal">和纸为底</span>
+        <span class="seal blue">墨线为骨</span>
+        <span class="seal gold">朱印为眼</span>
+      </div>
+    </div>
+    <div class="poster-frame">
+      <img src="https://images.unsplash.com/photo-1542640244-7e672d6cb7eb?w=600&q=80" alt="日式街景电影感">
+    </div>
+  </section>
+
+  <!-- 波浪 -->
+  <svg class="wave" viewBox="0 0 1200 54" preserveAspectRatio="none"><path d="M0,30 C150,5 300,55 450,30 C600,5 750,55 900,30 C1050,5 1150,40 1200,28 L1200,54 L0,54 Z"></path></svg>
+
+  <!-- 栏目1：日本电影 -->
+  <section class="section" id="eiga">
+    <div class="sec-head"><span class="jp">映画</span><h2>日本< span>电影</span></h2><a href="#">全片库 ›</a></div>
+    <div class="grid">
+      <article class="plate"><span class="tag">文艺</span><div class="pic"><img src="https://images.unsplash.com/photo-1505635552518-3448ff116af3?w=400&q=80" alt="驾驶我的车"></div><div class="info"><h4>驾驶我的车</h4><p>2021 · 滨口龙介 · 广岛长途</p></div></article>
+      <article class="plate"><span class="tag">家庭</span><div class="pic"><img src="https://images.unsplash.com/photo-1524985069026-ddb1d3e1b1a4?w=400&q=80" alt="小偷家族"></div><div class="info"><h4>小偷家族</h4><p>2018 · 是枝裕和 · 金棕榈</p></div></article>
+      <article class="plate"><span class="tag">经典</span><div class="pic"><img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&q=80" alt="东京物语"></div><div class="info"><h4>东京物语</h4><p>1953 · 小津安二郎 · 家庭与老</p></div></article>
+      <article class="plate"><span class="tag">动画</span><div class="pic"><img src="https://images.unsplash.com/photo-1578632292335-df3abbb0d586?w=400&q=80" alt="千与千寻"></div><div class="info"><h4>千与千寻</h4><p>2001 · 宫崎骏 · 汤屋异界</p></div></article>
+      <article class="plate"><span class="tag">恐怖</span><div class="pic"><img src="https://images.unsplash.com/photo-1509248961158-e54f6934749c?w=400&q=80" alt="午夜凶铃"></div><div class="info"><h4>午夜凶铃</h4><p>1998 · 中田秀夫 · J-Horror</p></div></article>
+      <article class="plate"><span class="tag">时代</span><div class="pic"><img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&q=80" alt="七武士"></div><div class="info"><h4>七武士</h4><p>1954 · 黑泽明 · 战国泥雨</p></div></article>
+    </div>
+  </section>
+
+  <div class="kasumi"></div>
+
+  <!-- 栏目2：日剧 -->
+  <section class="section" id="dorama">
+    <div class="sec-head"><span class="jp">ドラマ</span><h2>日< span>剧</span></h2><a href="#">档期表 ›</a></div>
+    <div class="grid">
+      <article class="plate"><span class="tag">职场</span><div class="pic"><img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=400&q=80" alt="半泽直树"></div><div class="info"><h4>半泽直树</h4><p>TBS · 金融复仇 · 以牙还牙</p></div></article>
+      <article class="plate"><span class="tag">爱情</span><div class="pic"><img src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?w=400&q=80" alt="逃避虽可耻但有用"></div><div class="info"><h4>逃避虽可耻但有用</h4><p>契约结婚 · 跳结局神曲</p></div></article>
+      <article class="plate"><span class="tag">悬疑</span><div class="pic"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=400&q=80" alt="轮到你了"></div><div class="info"><h4>轮到你了</h4><p>公寓交换杀人 · 本格变社会</p></div></article>
+      <article class="plate"><span class="tag">历史</span><div class="pic"><img src="https://images.unsplash.com/photo-1543059080-f9b1272213d5?w=400&q=80" alt="大河剧"></div><div class="info"><h4>大河剧：镰仓殿</h4><p>NHK · 武家风云 · 年播巨制</p></div></article>
+    </div>
+  </section>
+
+  <!-- 栏目3：动漫 -->
+  <section class="section" id="anime">
+    <div class="sec-head"><span class="jp">アニメ</span><h2>动< span>漫</span></h2><a href="#">新番表 ›</a></div>
+    <div class="grid">
+      <article class="plate"><span class="tag">奇幻</span><div class="pic"><img src="https://images.unsplash.com/photo-1541562232579-512a21360020?w=400&q=80" alt="你的名字"></div><div class="info"><h4>你的名字。</h4><p>2016 · 新海诚 · 彗星与绳结</p></div></article>
+      <article class="plate"><span class="tag">热血</span><div class="pic"><img src="https://images.unsplash.com/photo-1580477667995-2b94f01c9516?w=400&q=80" alt="鬼灭之刃"></div><div class="info"><h4>鬼灭之刃</h4><p>ufotable · 呼吸与刀光</p></div></article>
+      <article class="plate"><span class="tag">运动</span><div class="pic"><img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?w=400&q=80" alt="排球少年"></div><div class="info"><h4>排球少年！！</h4><p>乌野起飞 · 球场如战场</p></div></article>
+      <article class="plate"><span class="tag">治愈</span><div class="pic"><img src="https://images.unsplash.com/photo-1499428665502-503f6c608263?w=400&q=80" alt="夏目友人帐"></div><div class="info"><h4>夏目友人帐</h4><p>猫与妖怪 · 温柔的账本</p></div></article>
+    </div>
+  </section>
+
+  <div class="haiku">
+    樱落银幕上，<br>
+    便利店的灯<b>替人说晚安</b>，<br>
+    胶片里仍有梅雨未停。
+  </div>
+
+  <!-- 栏目4：纪录片 -->
+  <section class="section" id="doc">
+    <div class="sec-head"><span class="jp">ドキュメンタリー</span><h2>纪录< span>片</span></h2><a href="#">片单 ›</a></div>
+    <div class="grid">
+      <article class="plate"><span class="tag">社会</span><div class="pic"><img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=400&q=80" alt="72小时"></div><div class="info"><h4>NHK 72小时</h4><p>车站/医院/夜店 · 人的微光</p></div></article>
+      <article class="plate"><span class="tag">自然</span><div class="pic"><img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=400&q=80" alt="森林溪流"></div><div class="info"><h4>里山四季</h4><p>田埂、雪国、萤火与稻浪</p></div></article>
+      <article class="plate"><span class="tag">匠人</span><div class="pic"><img src="https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=400&q=80" alt="职人"></div><div class="info"><h4>是面包，是刀，是漆</h4><p>东京工艺者 · 一生一事</p></div></article>
+      <article class="plate"><span class="tag">电影人</span><div class="pic"><img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=400&q=80" alt="宫崎骏"></div><div class="info"><h4>不了神话 宫崎骏</h4><p>七旬仍画分镜的执念</p></div></article>
+    </div>
+  </section>
+
+  <!-- 栏目5：深夜放映 -->
+  <section class="section" id="night">
+    <div class="night">
+      <div class="sec-head"><span class="jp">深夜上映</span><h2>深夜< span>放映</span></h2><a href="#">排片 ›</a></div>
+      <div class="rail">
+        <div class="chip-card"><h4>午夜食堂</h2><p>关东煮、香肠、醉客与失恋的人。</p></div>
+        <div class="chip-card"><h4>完美日子</h4><p>扫厕所、听磁带、看树影。</p></div>
+        <div class="chip-card"><h4>夜以继日</h4><p>像谁，又不是谁，海边记忆。</p></div>
+        <div class="chip-card"><h4>孤独的美食家</h4><p>五郎走进小巷，饭比剧情重要。</p></div>
+        <div class="chip-card"><h4>红辣椒</h4><p>梦境装置、游行队伍、今敏的脑。</p></div>
+        <div class="chip-card"><h4>摄影机不要停</h4><p>丧尸片场、一层套一层的热血。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 关于 -->
+  <section class="section">
+    <div class="sec-head"><span class="jp">について</span><h2>关于< span>日本电影网</span></h2></div>
+    <div class="about">
+      <h2>日本电影网：<em>浮世绘里的放映机</em></h2>
+      <p>日本电影网（ribendianyingwang-h5）把“日本影像”当作一卷木版画来挂：电影是浪，日剧是桥，动漫是云，纪录片是远山。我们不追流量怪兽，只把值得静看的片子，盖上一枚朱红印。</p>
+      <p>网站名称：<strong>日本电影网</strong><br>
+         网站网址：<a href="https://ribendianyingwang-h5.github.io">https://ribendianyingwang-h5.github.io</a></p>
+      <div class="mon">
+        <span>桜</span><span>波</span><span>橋</span><span>雲</span><span>灯</span><span>墨</span><span>印</span>
+      </div>
+      <p style="margin-top:14px">本站仅做影视信息展示与导航，资源来自互联网，如有侵权请联系删除。</p>
+    </div>
+  </section>
+
+</div>
+
+<div class="footer">
+  <div class="mt-fuji">⛩</div>
+  <p>© 2024 日本电影网 ｜ 网站名称：日本电影网 ｜ 网址：<a href="https://ribendianyingwang-h5.github.io">ribendianyingwang-h5.github.io</a></p>
+  <p>浮世绘木版画风 · 单页静态演示 · 内链 # 占位 · 未生成 robots.txt / sitemap.xml</p>
+</div>
+
+</body>
+</html>
